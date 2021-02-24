@@ -1,0 +1,16 @@
+server:
+  port: 9991
+spring:
+  application:
+    name: nacos-provider-payment
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # 配置nacos的注册中心地址
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # 暴露监控服务检查

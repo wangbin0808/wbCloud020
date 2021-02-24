@@ -1,0 +1,37 @@
+server:
+  port: 8001
+
+# \u6570\u636E\u5E93
+spring:
+  datasource:
+    username: root
+    password: root123
+    url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource # \u5F53\u524D\u6570\u636E\u6E90\u64CD\u4F5C\u7C7B\u578B
+    driver-class-name: org.gjt.mm.mysql.Driver # mysql\u7684\u9A71\u52A8\u5305
+  application:
+    name: cloud-payment-service # \u9879\u76EE\u540D\u79F0
+
+
+# mybatis
+mybatis:
+  type-aliases-package: com.wb.cloud.entitles  # \u8FD9\u4E2A\u5305\u4E0B\u7684\u7C7B\u90FD\u91C7\u7528\u522B\u540D
+  mapper-locations: classpath:mapper/*.xml  # \u6307\u5B9Amapper \u6587\u4EF6\u5728\u54EA\u513F
+
+# eureka
+eureka:
+  instance:
+    prefer-ip-address: true # 访问路径可以显示ip地址
+    instance-id: payment8001 # 服务名称
+    # 心跳检测与续约时间
+    # 开发时设置小一些，保证服务关闭后，注册中心能及时的剔除服务
+    # eureka 客户端向服务端(注册中心)发送心跳的时间间隔，单位为秒(默认是30秒)
+    lease-renewal-interval-in-seconds: 1
+    # eureka 服务端在收到最后一次心跳后等待时间的上限，单位为秒(默认90秒)，超时将剔除服务
+    lease-expiration-duration-in-seconds: 2
+  client:
+    register-with-eureka: true # true表示向注册中心注册
+    fetch-registry: true # true表示从注册中心查询服务和注册服务
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka # 集群版

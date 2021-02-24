@@ -1,0 +1,33 @@
+server:
+  port: 9527
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    instance-id: cloud-gateway-service
+
+spring:
+  application:
+    name: cloud-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: payment_route #唯一标识
+#          uri: http://localhost:8001/ #转发的地址,写服务名称
+          uri: lb://CLOUD-PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/** #判断匹配条件,即地址带有/payment/**的请求,会转发至http://localhost:8001/
+      # 开启从配置文件获取
+      discovery:
+        locator:
+          enabled: true
+
+
+

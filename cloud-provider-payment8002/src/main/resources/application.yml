@@ -1,0 +1,31 @@
+server:
+  port: 8002
+
+# \u6570\u636E\u5E93
+spring:
+  datasource:
+    username: root
+    password: root123
+    url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource # \u5F53\u524D\u6570\u636E\u6E90\u64CD\u4F5C\u7C7B\u578B
+    driver-class-name: org.gjt.mm.mysql.Driver # mysql\u7684\u9A71\u52A8\u5305
+  application:
+    name: cloud-payment-service # \u9879\u76EE\u540D\u79F0
+
+
+# mybatis
+mybatis:
+  type-aliases-package: com.wb.cloud.entitles  # \u8FD9\u4E2A\u5305\u4E0B\u7684\u7C7B\u90FD\u91C7\u7528\u522B\u540D
+  mapper-locations: classpath:mapper/*.xml  # \u6307\u5B9Amapper \u6587\u4EF6\u5728\u54EA\u513F
+
+# eureka
+eureka:
+  instance:
+    instance-id: payment8002
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true # true表示向注册中心注册
+    fetch-registry: true # true表示从注册中心查询服务和注册服务
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka # 集群版
